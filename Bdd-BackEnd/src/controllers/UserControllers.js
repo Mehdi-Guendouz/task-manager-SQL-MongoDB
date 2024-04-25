@@ -1,14 +1,43 @@
-// import hashPassword from "../utils/hashPassword";
-// import User from "../../prisma/prismaClient";
-// import { generateToken } from "../utils/jwtToke";
 const bcrypt = require("bcrypt");
 const prisma = require("../../prisma/prismaClient");
 const { generateToken } = require("../utils/jwtToke");
 const { hashPassword } = require("../utils/hashPassword");
+const Joi = require("joi");
+
+const schemaRegister = Joi.object({
+  email: Joi.string().email().required().messages({
+    "string.email": "email must be a valid email",
+    "any.required": "email is required",
+  }),
+  password: Joi.string().min(6).required().messages({
+    "string.min": "password must be at least 6 characters",
+    "any.required": "password is required",
+  }),
+  name: Joi.string().required().messages({
+    "any.required": "name is required",
+  }),
+});
+
+const schemaLogin = Joi.object({
+  email: Joi.string().email().required().messages({
+    "string.email": "email must be a valid email",
+    "any.required": "email is required",
+  }),
+  password: Joi.string().min(6).required().messages({
+    "string.min": "password must be at least 6 characters",
+    "any.required": "password is required",
+  }),
+});
 
 async function registerUser(req, res) {
   const data = req.body;
   const hashedPassword = await hashPassword(data.password);
+
+  const { error } = schemaRegister.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
 
   try {
     const user = await prisma.user.findUnique({
@@ -63,6 +92,12 @@ async function registerUser(req, res) {
 
 async function login(req, res) {
   const { email, password } = req.body;
+
+  const { error } = schemaLogin.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
   try {
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
@@ -74,6 +109,7 @@ async function login(req, res) {
 
     if (!passwordMatch) {
       res.status(401).json({ message: "Invalid email or password" });
+      return;
     }
 
     const token = generateToken(user.id);
@@ -89,9 +125,10 @@ async function login(req, res) {
         },
       },
     });
+    return;
   } catch (error) {
-    // res.status(500).json({ message: "Failed to log in" });
-    console.error("Error logging in:", error);
+    res.status(500).json({ message: "Failed to log in" });
+    // console.error("Error logging in:", error);
   }
 }
 
