@@ -17,11 +17,11 @@ const protect = asyncHandler(async (req, res, next) => {
       const decode = verifyToken(token);
       // Check if token is valid
       if (!decode) {
-        res.status(401).message("not authorized");
+        return res.status(401).message("not authorized");
       }
       // Check if token is expired
       if (decode.iat > decode.exp) {
-        res.status(401).message("not authorized expired token");
+        return res.status(401).message("not authorized expired token");
       }
       //  Find user
       const user = await prisma.user.findUnique({
@@ -30,7 +30,7 @@ const protect = asyncHandler(async (req, res, next) => {
       });
       // Check if user exist
       if (!user) {
-        res.status(401).message("not authorized no user");
+        return res.status(401).message("not authorized no user");
       }
       // Set user in the req object
       req.user = user;

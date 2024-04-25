@@ -11,7 +11,7 @@ function generateToken(userId) {
     throw new Error("JWT_SECRET environment variable is not set");
   }
 
-  return jwt.sign(payload, secret, { expiresIn: "1h" }); // Adjust expiration as needed
+  return jwt.sign(payload, secret, { expiresIn: "10d" }); // Adjust expiration as needed
 }
 
 function verifyToken(token) {
