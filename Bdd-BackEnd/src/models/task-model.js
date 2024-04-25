@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+
 const importanceEnum = ["low", "medium", "high"];
 
 const taskSchema = new mongoose.Schema({
@@ -32,4 +33,4 @@ const taskSchema = new mongoose.Schema({
 
 const Task = mongoose.model("Task", taskSchema);
 
-export default Task;
+module.exports = Task;

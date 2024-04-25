@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-export default prisma.user; // Expose the user model
+module.exports = prisma;

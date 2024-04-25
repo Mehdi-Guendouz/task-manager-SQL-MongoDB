@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+const bcrypt = require("bcrypt");
 
 async function hashPassword(password) {
   const saltRounds = 10; // Adjust cost factor as needed
@@ -6,4 +6,4 @@ async function hashPassword(password) {
   return hashedPassword;
 }
 
-export default hashPassword;
+module.exports = { hashPassword };

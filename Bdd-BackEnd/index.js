@@ -1,9 +1,10 @@
-import express from "express";
-import taskRoute from "./src/routes/task-route.js";
-import user from "./src/routes/user-route.js";
-import mongoose from "mongoose";
-import cors from "cors";
-import "dotenv/config";
+//  Initiate the server and connect to the database
+const express = require("express");
+const taskRoute = require("./src/routes/task-route");
+const user = require("./src/routes/user-route");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv/config");
 
 const app = express();
 
