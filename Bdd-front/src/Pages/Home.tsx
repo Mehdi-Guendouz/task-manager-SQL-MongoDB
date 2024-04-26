@@ -3,6 +3,8 @@ import Task from "@/components/shared/Task";
 import { Separator } from "@/components/ui/separator";
 
 const Home = () => {
+  const getTasks = () => {};
+
   return (
     <div className="py-6 px-4 space-y-4">
       <div>
