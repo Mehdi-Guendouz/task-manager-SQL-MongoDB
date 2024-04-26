@@ -52,7 +52,7 @@ async function registerUser(req, res) {
       where: { name: data.name },
     });
     if (name) {
-      res.status(400).json({ message: "change the name" });
+      res.status(400).json({ message: "the name is already taken" });
       return;
     }
 
