@@ -74,3 +74,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  transform-origin: center;
+  animation: spin 1.3s linear infinite;
+}

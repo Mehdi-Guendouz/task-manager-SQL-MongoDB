@@ -1,4 +1,4 @@
-import { History, Home } from "lucide-react";
+import { History, Home, LogOut } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -80,8 +80,9 @@ export function SideBar() {
       <div className="px-4 pb-4">
         <div
           onClick={handleLogout}
-          className="flex text-base items-center gap-3 px-3 py-3 rounded-lg font-bold transition-all hover:bg-red-500 bg-red-700 text-white hover:text-white duration-300 cursor-pointer"
+          className="flex text-base  items-center gap-3 px-3 py-3 rounded-lg font-bold transition-all hover:bg-red-500 border  text-black hover:text-white duration-300 cursor-pointer"
         >
+          <LogOut className="h-5 w-5" />
           Log Out
         </div>
       </div>
