@@ -24,32 +24,68 @@ const updateTaskSchema = Joi.object({
 const getAllTasks = async (req, res) => {
   // get user id from the req object
   const id = req.user.id;
-  const search = req.query.search;
-  const filter = req.query.filter;
+  const search = req.query.search ? req.query.search : "";
+  const filter = req.query.filter ? req.query.filter : "";
+  const completed = req.query.completed;
   //  Check if search and filter are present
   const keywords = () => {
-    if (search && filter) {
-      if (isFilterValid(filter)) {
+    if (completed !== undefined) {
+      if (search && filter) {
+        if (isFilterValid(filter)) {
+          return {
+            user_id: id,
+            $or: [
+              { title: { $regex: search, $options: "i" } },
+              { description: { $regex: search, $options: "i" } },
+            ],
+            importance: filter,
+            completed: completed,
+          };
+        }
+      } else if (search) {
         return {
           user_id: id,
-          title: { $regex: search, $options: "i" },
-          importance: filter,
+          $or: [
+            { title: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
+          ],
+          completed: completed,
         };
-      }
-    } else if (search) {
-      return {
-        user_id: id,
-        $or: [
-          { title: { $regex: search, $options: "i" } },
-          { description: { $regex: search, $options: "i" } },
-        ],
-      };
-    } else if (filter) {
-      if (isFilterValid(filter)) {
-        return { user_id: id, importance: filter };
+      } else if (filter) {
+        if (isFilterValid(filter)) {
+          return { user_id: id, importance: filter, completed: completed };
+        }
+      } else {
+        return { user_id: id, completed: completed };
       }
     } else {
-      return { user_id: id };
+      console.log("no completed");
+      if (search && filter) {
+        if (isFilterValid(filter)) {
+          return {
+            user_id: id,
+            $or: [
+              { title: { $regex: search, $options: "i" } },
+              { description: { $regex: search, $options: "i" } },
+            ],
+            importance: filter,
+          };
+        }
+      } else if (search) {
+        return {
+          user_id: id,
+          $or: [
+            { title: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
+          ],
+        };
+      } else if (filter) {
+        if (isFilterValid(filter)) {
+          return { user_id: id, importance: filter };
+        }
+      } else {
+        return { user_id: id };
+      }
     }
   };
   try {
@@ -57,8 +93,10 @@ const getAllTasks = async (req, res) => {
     if (!id) {
       return res.status(400).json({ message: "User not found" });
     }
+    console.log(keywords());
     // Find all tasks for the user
     const tasks = await Task.find(keywords());
+
     // return all tasks
     res.status(200).json({
       message: "Get all tasks",

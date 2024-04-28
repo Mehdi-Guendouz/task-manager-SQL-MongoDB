@@ -22,6 +22,7 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { axiosInstance } from "@/api/config";
 import { TaskItem } from "@/types";
+import { toast } from "sonner";
 
 type AddTaskModalProps = {
   edit?: boolean;
@@ -62,18 +63,20 @@ const AddTaskModal = ({
           completed: false,
         })
         .then((res) => {
-          console.log(res.data);
+          console.log("response", res.data);
           setTasks((prev) =>
-            prev.map((t) => (t._id === task._id ? res.data.task : t))
+            prev.map((t) => (t._id === task._id ? res.data.updatedTask : t))
           ); // update the tasks
           setTitle("");
           setDescription("");
           setImportance("low");
           setError("");
           handleClose();
+          toast.success("Task updated successfully");
         })
         .catch((err) => {
           setError(err.response.data.message);
+          toast.error(err.response.data.message);
         })
         .finally(() => {
           setLoading(false);
@@ -89,9 +92,11 @@ const AddTaskModal = ({
           setImportance("low");
           setError("");
           handleClose();
+          toast.success("Task added successfully");
         })
         .catch((err) => {
           setError(err.response.data.message);
+          toast.error(err.response.data.message);
         })
         .finally(() => {
           setLoading(false);
@@ -103,7 +108,7 @@ const AddTaskModal = ({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger
         className={cn(
-          "border rounded-sm px-5 py-2 hover:bg-black hover:text-white transition-all duration-200",
+          "border shadow-sm rounded-sm px-5 py-2 hover:bg-black hover:text-white transition-all duration-200",
           edit ? "border-none p-2" : "text-sm font-medium"
         )}
         disabled={isDisabled}
