@@ -4,7 +4,7 @@ import { useDebounce } from "use-debounce";
 import Task from "@/components/shared/Task";
 import { Separator } from "@/components/ui/separator";
 import { TaskItem } from "@/types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import { Input } from "@/components/ui/input";
