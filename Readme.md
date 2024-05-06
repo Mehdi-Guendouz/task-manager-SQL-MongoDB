@@ -2,11 +2,11 @@
 
 **Project Name**
 
-[Replace with your project name]
+GDone: An Effective Task Management Application
 
-**Description**
+**Introduction**
 
-[Provide a concise description of your web application's purpose and functionality.]
+This project aims to provide practical experience in designing and implementing a data storage system capable of handling large volumes and complex queries efficiently. It utilizes the combined power of SQL and NoSQL technologies.
 
 **Prerequisites**
 
@@ -20,16 +20,14 @@
 ```
 .
 ├── backend/
-│   ├── app.js (Express.js server)
+│   ├── index.js (Express.js server)
 │   ├── env.example (Environment variable template)
 │   ├── [other backend files]
 ├── frontend/
 │   ├── package.json (React project dependencies)
 │   ├── src/ (React application source code)
 │   ├── [other frontend files]
-├── package.json (Top-level project dependencies)
 ├── README.md (This file)
-└── [other project files]
 ```
 
 **Installation**
@@ -37,16 +35,29 @@
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repository.git
+   git clone https://github.com/Mehdi-Guendouz/task-manager-SQL-MongoDB.git
    ```
 
-2. Navigate to the project directory:
+2. Navigate to the Backend directory:
 
    ```bash
-   cd your-project-name
+   cd task-manager-SQL-MongoDB
+    cd Bdd-backEnd
    ```
 
-3. Install dependencies:
+3. Install Back End dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Navigate to the Backend directory:
+
+   ```bash
+   cd Bdd-front
+   ```
+
+5. Install Front end dependencies:
 
    ```bash
    npm install
@@ -54,13 +65,13 @@
 
 **Environment Variables**
 
-Create a file named `.env` in the root directory (outside of version control) and add the following variables, replacing the placeholders with your actual values:
+Create a file named `.env` in the root directory of the backend directory (/Bdd-BackEnd/.env) and add the following variables, replacing the placeholders with your actual values:
 
 ```
 DATABASE_URL=mysql://username:password@host:port/database
 MONGODB_URL=mongodb://username:password@host:port/database
 PORT=4000
-JWT_SECRET=Bdd_project
+JWT_SECRET="secret_code"
 ```
 
 **Starting the Application**
@@ -77,29 +88,16 @@ JWT_SECRET=Bdd_project
    npm run dev
    ```
 
+3. Insure that you are in the rote directory for each one of the servers to start
+
 **Accessing the Application**
 
-The React application will be accessible at http://localhost:3000 by default.
+- The React application will be accessible at http://localhost:5173 by default.
+- for the express server it will be accessible at http://localhost:4000 by default.
 
 **Additional Notes**
 
 - Replace the placeholders in the environment variables with your actual values.
 - Consider using a dotenv package to manage environment variables more securely.
 - For production deployment, you might need to adjust configurations and build processes.
-
-**Contributing**
-
-[Describe your contribution guidelines, if any.]
-
-**License**
-
-[Specify the license under which your project is distributed.]
-
-**Additional Tips**
-
-- Consider using a linter and code formatter to maintain code quality.
-- Implement unit and integration tests for your backend and frontend code.
-- Document your code effectively for better maintainability.
-- Use version control (e.g., Git) to track changes and collaborate effectively.
-
-I hope this comprehensive README.md file serves you well!
+- you may consider using nodemon for the backend if you are in dev mode

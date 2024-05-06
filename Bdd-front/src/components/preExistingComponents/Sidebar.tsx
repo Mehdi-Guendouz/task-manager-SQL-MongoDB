@@ -1,6 +1,6 @@
 import { History, Home, LogOut } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import Logo from "@/assets/logo.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "../ui/separator";
 import { cn } from "@/lib/utils";
@@ -27,7 +27,8 @@ export function SideBar() {
     <div className="hidden border-r bg-muted/40 md:flex flex-col">
       {/* logo */}
       <div>
-        <Link to="/" className="flex items-center  p-4">
+        <Link to="/" className="flex items-center gap-1 p-4">
+          <img src={Logo} alt="logo" className="h-7 w-7" />
           <h1 className="text-2xl font-semibold text-primary">GDone</h1>
         </Link>
       </div>
